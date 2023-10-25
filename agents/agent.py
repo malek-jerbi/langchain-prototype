@@ -5,18 +5,18 @@ from sql_agent import sql_agent
 
 
 def lookup(prompt: str) -> str:
-    llm = ChatOpenAI(temperature=0, model_name="gpt-4")
+    llm = ChatOpenAI(temperature=0, model_name="gpt-3.5-turbo")
     tools = load_tools(["openweathermap-api"], llm)
     tools.extend([
         Tool(
-            name="Crawl Google",
+            name="Crawl_Google",
             func=google_search,
             description="useful for when you need to search on google",
         ),
         Tool(
-            name="personal info agent",
+            name="personal_info_agent",
             func=sql_agent,
-            description="useful for when you need to retrieve any personal data. this is another agent, so the input can be in natural language.",
+            description="useful for when you need to administrative personal data, for example, social insurance number. this is another agent, so the input can be in natural language.",
         )
     ]
     )
@@ -24,7 +24,7 @@ def lookup(prompt: str) -> str:
     agent = initialize_agent(
         tools=tools,
         llm=llm,
-        agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+        agent=AgentType.OPENAI_FUNCTIONS,
         verbose=True,
     )
     prompt_answer = agent.run(prompt)

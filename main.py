@@ -8,7 +8,7 @@ def make_request(input: str) -> str:
 
 
 if __name__ == "__main__":
-    make_request(input="what is the temperature in Montreal?")
+    make_request(input="c'est quoi mon code permanent?")
 
 # what is the temperature in montreal
 # who is the ceo of optania
